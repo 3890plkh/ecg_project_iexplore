@@ -11,17 +11,12 @@ for patient in [100,101,102,103,104,105,106,107,108,109,111,112,113,114,115,116,
     #create empty dict
     data = {}
     #convert sample number to time assuming equal time intervals
-    data["time"]=np.linspace(start=0,stop=fields["sig_len"]/fields["fs"],num=fields["sig_len"],endpoint=False)
+    data["time"]=np.linspace(start=0,stop=fields["sig_len"]/fields["fs"],num=fields["sig_len"])
     #for every channel
     for i in range(len(fields["sig_name"])):
         #create a column for that channel
         data["{channel}".format(channel=fields["sig_name"][i])]=sig[:,i]
     #create data frame of the signals
     data=pd.DataFrame.from_dict(data)
-    #coverts dataframe to csv (change path if required)
+    #coverts dataframe to csv and saves in path specified (change path if required)
     data.to_csv(path_or_buf=r"Patient data\{patient}.csv".format(patient=patient),sep=",",index=False)
-
-
-
-        
-

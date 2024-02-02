@@ -14,7 +14,7 @@ You will need to download the wdfb Python package. To install, run the command:
 ```
 pip install wfdb
 ```
-in your terminal 
+in your terminal.
 
 Documentation is available here: https://wfdb.readthedocs.io/en/latest/
 
