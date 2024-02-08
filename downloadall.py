@@ -19,7 +19,7 @@ for patient in [100,101,102,103,104,105,106,107,108,109,111,112,113,114,115,116,
         data["{channel}".format(channel=fields["sig_name"][i])]=sig[:,i]
     #create data frame of the signals
     data=pd.DataFrame.from_dict(data)
-    #if folder chunks doesn't exist create one
+    #if folder "Patient data" doesn't exist create one
     if os.path.isdir("Patient data")!=True:
         os.mkdir("Patient data")
     #coverts dataframe to csv and saves in path specified (change path if required)
