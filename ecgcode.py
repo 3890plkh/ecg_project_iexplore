@@ -1,7 +1,7 @@
-#code to see what the wfdb module does
+# code to see what the wfdb module does, it's a bit messy
+# Please read the docs: https://wfdb.readthedocs.io/en/latest/
 
 import wfdb as wfdb
-from wfdb import processing
 import pandas as pd
 import os
 import matplotlib.pyplot as plt
@@ -10,37 +10,45 @@ import matplotlib.pyplot as plt
 def plot(patient):
     record=wfdb.rdrecord(record_name=patient ,pn_dir="mitdb",sampfrom=0,sampto=2000)
     ann=wfdb.rdann(patient,extension="atr" ,sampfrom=0, sampto=2000, pn_dir="mitdb",shift_samps=True)
+    #they have their own plotter function
     wfdb.plot_items(record.p_signal, ann_samp=[ann.sample, ann.sample],time_units="seconds",fs=1000,ecg_grids="all",sig_units=["mV","mV"], title="Patient {patient}".format(patient=patient))
     print(ann.aux_note)
 
 #messing about with annotation files
 def annotations(patient):
+    #reads annotation from mitdb database
     ann=wfdb.rdann(patient,extension="atr" , pn_dir="mitdb" , return_label_elements=["symbol"])
+    #returns sample number associated with each annotation
     print(ann.sample)
+    #this contains information about heart rhythm changes, used in snippets.py
+    print(ann.aux_note)
 
 #MUST RUN "snippets.py" BEFORE USING THIS
-def plotCondition(Condition):
-    file=os.listdir(r"Chunks\{Condition}".format(Condition=Condition))[0]
-    data=pd.read_csv(r"Chunks\{Condition}\{file}".format(Condition=Condition,file=file),usecols=[0,1])
-    #can change parameters of what times you want to plot depending on the file
-    datachunk=data[(data["time"]<1.5) & (data["time"]>0)]
-    #plots one channel
-    plt.plot(datachunk["time"],datachunk["MLII"],)
+#produces a plot of both channels of a snippet of a given heart condition 
+def plotCondition(Condition,starttime,finishtime):
+    file=os.listdir(r"Chunks\{Condition}".format(Condition=Condition))[9]
+    data=pd.read_csv(r"Chunks\{Condition}\{file}".format(Condition=Condition,file=file))
+    #can change parameters of what part of snippet you want to plot depending on the file
+    datachunk=data[(data["time"]<finishtime) & (data["time"]>starttime)]
+    #create figure containing 2 graphs
+    fig, ((ax1),(ax2))=plt.subplots(nrows=len(data.columns)-1,ncols=1,sharex=True)
+
+    #plot each channel
+    ax1.plot(datachunk["time"],datachunk["MLII"])
+    ax1.set_xlabel("Time (s)")
+    ax1.set_ylabel("Channel: MLII")
+    ax1.grid()
+
+    ax2.plot(datachunk["time"],datachunk["V1"])
+    ax2.set_xlabel("Time (s)")
+    ax2.set_ylabel("Channel: V1")
+    ax2.grid()
+
     #title tells you which file was plotted
-    plt.title("{Condition} - {file}".format(Condition=Condition,file=file))
-    plt.grid()
+    fig.suptitle("{Condition} - {file}".format(Condition=Condition,file=file))
     plt.show()
 
 #plot("203")
-
-
-#sig1,fields1=wfdb.rdsamp(record_name="100" ,pn_dir="mitdb",sampfrom=0,sampto=2000)
-#sig2,fields2=wfdb.rdsamp(record_name="100" ,pn_dir="mitdb",sampfrom=1,sampto=2000)
-#print(len(sig1),len(sig2))
-
 #annotations("203")
 
-plotCondition("VT")
-
-
-
+plotCondition("AFIB",1,6)
