@@ -26,22 +26,22 @@ def annotations(patient):
 #MUST RUN "snippets.py" BEFORE USING THIS
 #produces a plot of both channels of a snippet of a given heart condition 
 def plotCondition(Condition,starttime,finishtime):
-    file=os.listdir(r"Chunks\{Condition}".format(Condition=Condition))[9]
+    file=os.listdir(r"Chunks\{Condition}".format(Condition=Condition))[0]
     data=pd.read_csv(r"Chunks\{Condition}\{file}".format(Condition=Condition,file=file))
     #can change parameters of what part of snippet you want to plot depending on the file
     datachunk=data[(data["time"]<finishtime) & (data["time"]>starttime)]
-    #create figure containing 2 graphs
-    fig, ((ax1),(ax2))=plt.subplots(nrows=len(data.columns)-1,ncols=1,sharex=True)
+    #create figure containing 2 graphs. One for each channel
+    fig, ((ax1),(ax2))=plt.subplots(nrows=len(data.columns)-1,ncols=1,sharex=True,sharey=True)
 
     #plot each channel
-    ax1.plot(datachunk["time"],datachunk["MLII"])
+    ax1.plot(datachunk["time"],datachunk[data.columns[1]])
     ax1.set_xlabel("Time (s)")
-    ax1.set_ylabel("Channel: MLII")
+    ax1.set_ylabel("Channel: {channelname}".format(channelname=data.columns[1]))
     ax1.grid()
 
-    ax2.plot(datachunk["time"],datachunk["V1"])
+    ax2.plot(datachunk["time"],datachunk[data.columns[2]])
     ax2.set_xlabel("Time (s)")
-    ax2.set_ylabel("Channel: V1")
+    ax2.set_ylabel("Channel: {channelname}".format(channelname=data.columns[2]))
     ax2.grid()
 
     #title tells you which file was plotted
@@ -51,4 +51,4 @@ def plotCondition(Condition,starttime,finishtime):
 #plot("203")
 #annotations("203")
 
-plotCondition("AFIB",1,6)
+plotCondition("AFL",1,6)
