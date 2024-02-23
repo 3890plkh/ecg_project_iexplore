@@ -16,8 +16,7 @@ The potential aims of the project are to:
 
 You will need to download the wdfb Python package to be able to deal with the format the ECG signals are stored in [1][2]. Also we are currently intending on using the multi-layered perceptron neural network (MLPNN) model from the python module scikit-learn for classification of ECG signal [3]. To install both, run the command: 
 ```
-pip install wfdb
-pip install scikit-learn
+pip install wfdb scikit-learn
 ```
 in your terminal.
 
