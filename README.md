@@ -1,6 +1,7 @@
 # ECG Project (Imperial I-Explore)
 
 This is the project code for analysis of ECG data from the MIT-BIH Arrhythmia Database (can be found here: https://physionet.org/content/mitdb/1.0.0/). 
+
 This repository contains the following code:
 * downloadall.py - converts each 30 minute ECG signal in the database into a .csv file. 
 * snippets.py - creates snippets of ECG pulses of different types of heart conditions. Heart condition is determined is from the annotations provided in the MIT-BIH Arrhythmia Database.
@@ -21,6 +22,7 @@ pip install wfdb scikit-learn
 in your terminal.
 
 Documentation for wfdb module is available here: https://wfdb.readthedocs.io/en/latest/
+
 Documentation for the MLPNN model is available here: https://scikit-learn.org/stable/modules/neural_networks_supervised.html#multi-layer-perceptron
 
 Will also need the standard Python data processing libraries (numpy, pandas, scipy, matplotlib etc.). If you do not have these installed just run the above command but with whatever module you need to install.
