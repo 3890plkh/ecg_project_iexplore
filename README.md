@@ -3,7 +3,6 @@
 This is the project code for analysis of ECG data from the MIT-BIH Arrhythmia Database (can be found here: https://physionet.org/content/mitdb/1.0.0/). 
 
 This repository contains the following code:
-* ~~ downloadall.py - converts each 30 minute ECG signal in the database into a .csv file. ~~ (redundant)
 * snippets.py - creates snippets of ECG pulses of different types of heart conditions. Heart condition is determined is from the annotations provided in the MIT-BIH Arrhythmia Database.
 * ecgcode.py - for playing around with the data, contains a function called plotCondition(), which plots a section of a snippet for a specific heart condition that you specify.
 * trainingDataSelector.py - contains a function that selects a percentage of the data to be used to train the MLPNN model. 
