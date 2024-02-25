@@ -48,6 +48,7 @@ def convertToSnippet(samplefrom,sampleto,sig,fields,condition,patient):
 #go through each patient file
 patients=[100,101,102,103,104,105,106,107,108,109,111,112,113,114,115,116,117,118,119,121,122,123,124,200,201,202,203,205,207,208,209,210,212,213,214,215,217,219,220,221,222,223,228,230,231,232,233,234]
 for patient in patients:
+    #Progress indicator - prints message to indicate which patient we are on
     print("Reading data for patient {patientNumber} ({patientsRead} of {total})".format(patientNumber=patient,patientsRead=patients.index(patient)+1, total=len(patients)))
     #find the sample and annotation file
     sig,fields= wfdb.rdsamp(str(patient), pn_dir="mitdb")
@@ -79,9 +80,9 @@ for patient in patients:
                     startIndex=i
                     continue
 
-                #if we don't have 2 seconds of data bother don't bother saving
+                #if we don't have 6 seconds of data bother don't bother saving
                 timelengthOfSample=(endsample-startsample+1)/fields["fs"]
-                if timelengthOfSample<2:
+                if timelengthOfSample<6:
                     startIndex=i
                     continue
                 #if snippet is too long, chop it up
@@ -110,9 +111,9 @@ for patient in patients:
             if condition in ["MISSB", "TS"]:
                 continue
 
-            #if we dont have 2 seconds of data bother don't bother saving
+            #if we dont have 6 seconds of data bother don't bother saving
             timelengthOfSample=(endsample-startsample)/fields["fs"]
-            if timelengthOfSample<2:
+            if timelengthOfSample<6:
                 continue
             #if snippet is too long, chop it up
             if timelengthOfSample>100:
