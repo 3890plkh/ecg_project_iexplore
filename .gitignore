@@ -4,3 +4,4 @@ Patient data
 *.jpeg
 *.csv
 Chunks
+__pycache__
