@@ -80,15 +80,15 @@ for patient in patients:
                     startIndex=i
                     continue
 
-                #if we don't have 6 seconds of data bother don't bother saving
+                #if we don't have 3 seconds of data bother don't bother saving
                 timelengthOfSample=(endsample-startsample+1)/fields["fs"]
-                if timelengthOfSample<6:
+                if timelengthOfSample<3:
                     startIndex=i
                     continue
                 #if snippet is too long, chop it up
-                if timelengthOfSample>100:
-                    #want to create snippets of about 30 seconds
-                    numberOfSnippets=timelengthOfSample//30
+                if timelengthOfSample>10:
+                    #want to create snippets of about 5 seconds
+                    numberOfSnippets=timelengthOfSample//5
                     #these are the sample numbers we use
                     samplenumbers=np.int_(np.linspace(start=startsample,stop=endsample,num=int(numberOfSnippets)+2,endpoint=True))
                     #for each section, create a snippet
@@ -111,14 +111,14 @@ for patient in patients:
             if condition in ["MISSB", "TS"]:
                 continue
 
-            #if we dont have 6 seconds of data bother don't bother saving
+            #if we dont have 3 seconds of data bother don't bother saving
             timelengthOfSample=(endsample-startsample)/fields["fs"]
-            if timelengthOfSample<6:
+            if timelengthOfSample<3:
                 continue
             #if snippet is too long, chop it up
-            if timelengthOfSample>100:
-                #want to create snippets of about 30 seconds
-                numberOfSnippets=timelengthOfSample//30
+            if timelengthOfSample>10:
+                #want to create snippets of about 5 seconds
+                numberOfSnippets=timelengthOfSample//5
                 #these are the sample numbers we use
                 samplenumbers=np.int_(np.linspace(start=startsample,stop=endsample,num=int(numberOfSnippets)+2,endpoint=True))
                 #for each section, create a snippet
