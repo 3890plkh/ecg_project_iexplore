@@ -20,34 +20,48 @@ try:
 except IndexError:
     percentage=80
 
+#enter a mode in command line
+#if no mode is entered, default to "FT" as this works
+try:
+    mode=sys.argv[2]
+except IndexError:
+    mode="FT"
+
 #creates training data and test data
-trainingFiles_snippets,trainingFiles_conditions,testFiles_snippets,testFiles_conditions=selectTrainingData(percentage)
+trainingFiles_snippets,trainingFiles_conditions,testFiles_snippets,testFiles_conditions=selectTrainingData(percentage,mode)
+
+#-------------------------------------------------------------------------
+#FT mode checks
 
 #looking at what the FTs look like
 def plotFT(number):
     plt.plot(np.arange(len(trainingFiles_snippets[number])),np.abs(trainingFiles_snippets[number]))
     plt.title("Fourier Transform of {condition} signal (index:{index})".format(condition=trainingFiles_conditions[number],index=number))
-    plt.ylabel(r"$\log_{10}$ of Absolute value of Fourier Transform")
+    plt.ylabel("Absolute value of Fourier Transform")
     plt.xlabel("Scaled Frequency")
     plt.grid()
     plt.show()
 
 #plot some FTs
-for i in np.linspace(10,len(trainingFiles_conditions)-15,num=14,endpoint=False):
-    plotFT(int(i//1))
+if mode=="FT":
+    for i in random.sample(range(len(trainingFiles_snippets)),10):
+        plotFT(int(i))
+
+#You should not see this print message - if you do then some of the snippets aren't long enough
+#if mode=="FT":
+#    for i in range(len(trainingFiles_snippets)):
+#        if len(trainingFiles_snippets[i])<500:
+#            print("Fail : " + str(len(trainingFiles_snippets[i])))
+
+#------------------------------------------------------------------------------------
 
 #turn conditions into numbers - so we can map snippets onto numbers
 #https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.LabelEncoder.html
 le = LabelEncoder()
 le.fit(os.listdir("Chunks"))
 
-#default settings for the first MLPNN model
-model=nn.MLPClassifier(activation="tanh",verbose=True)
-
-#You should not see this print message - if you do then some of the snippets aren't long enough
-for i in range(len(trainingFiles_snippets)):
-    if len(trainingFiles_snippets[i])<500:
-        print("Fail : " + str(len(trainingFiles_snippets[i])))
+#default settings for the first MLPNN model - try playing around with it
+model=nn.MLPClassifier(activation="logistic",verbose=True,shuffle=True,learning_rate="adaptive",max_iter=1000)
 
 #train the model
 model.fit(np.abs(trainingFiles_snippets),le.transform(trainingFiles_conditions))
@@ -56,8 +70,8 @@ model.fit(np.abs(trainingFiles_snippets),le.transform(trainingFiles_conditions))
 predictedConditions=model.predict(np.abs(testFiles_snippets))
 #calculate accuracy
 accuracy=accuracy_score(y_true=le.transform(testFiles_conditions),y_pred=predictedConditions)*100
-print("Accuracy of Model: " + str(accuracy))
+print("Accuracy of Model: " + str(round(accuracy,2)) +"%")
 
 #compare to just guessing N everytime
 accuracy=accuracy_score(y_true=le.transform(testFiles_conditions),y_pred=le.transform(["N"]*len(testFiles_conditions)))*100
-print("Guessing N everytime: "+ str(accuracy))
+print("Guessing N everytime: "+ str(round(accuracy,2)) +"%")
