@@ -18,7 +18,7 @@ import matplotlib.pyplot as plt
 try:
     percentage=int(sys.argv[1])
 except IndexError:
-    percentage=70
+    percentage=80
 
 #creates training data and test data
 trainingFiles_snippets,trainingFiles_conditions,testFiles_snippets,testFiles_conditions=selectTrainingData(percentage)
@@ -33,7 +33,7 @@ def plotFT(number):
     plt.show()
 
 #plot some FTs
-for i in np.linspace(10,len(trainingFiles_conditions)-15,num=5,endpoint=False):
+for i in np.linspace(10,len(trainingFiles_conditions)-15,num=14,endpoint=False):
     plotFT(int(i//1))
 
 #turn conditions into numbers - so we can map snippets onto numbers
@@ -56,4 +56,8 @@ model.fit(np.abs(trainingFiles_snippets),le.transform(trainingFiles_conditions))
 predictedConditions=model.predict(np.abs(testFiles_snippets))
 #calculate accuracy
 accuracy=accuracy_score(y_true=le.transform(testFiles_conditions),y_pred=predictedConditions)*100
-print(accuracy)
+print("Accuracy of Model: " + str(accuracy))
+
+#compare to just guessing N everytime
+accuracy=accuracy_score(y_true=le.transform(testFiles_conditions),y_pred=le.transform(["N"]*len(testFiles_conditions)))*100
+print("Guessing N everytime: "+ str(accuracy))
