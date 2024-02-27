@@ -6,7 +6,7 @@ This repository contains the following code:
 * snippets.py - creates snippets of ECG pulses of different types of heart conditions. Heart condition is determined is from the annotations provided in the MIT-BIH Arrhythmia Database.
 * ecgcode.py - for playing around with the data, contains a function called plotCondition(), which plots a section of a snippet for a specific heart condition that you specify.
 * trainingDataSelector.py - contains a function that selects a percentage of the data to be used to train the MLPNN model. 
-* mplnn_test0.py - first attempt at creating a working ML model. The ECG signals are fed in as a Fourier Transform (there must be a better way to do this?). You can specify what percentage of the data should be used for training the ML model from the command line (if you don't specify a percentage, 80% of the data will be used for training as default)
+* mplnn_test0.py - first attempt at creating a working ML model. The ECG signals are fed in as a Fourier Transform. You can specify what percentage of the data should be used for training the ML model from the command line (if you don't specify a percentage, 80% of the data will be used for training as default).
 
 ## What the Aims of the Project are
 

@@ -53,7 +53,7 @@ def selectTrainingData(percentage,mode):
                     testFiles_snippets.append(rfft(snippetAsDataFrame[snippetAsDataFrame.columns[0]].to_numpy(dtype=object))[10:510])
                     testFiles_conditions.append(folderName)
                 elif mode=="raw":
-                    testFiles_snippets.append(snippetAsDataFrame[snippetAsDataFrame.columns[0]].to_numpy(dtype=object)[0:500])
+                    testFiles_snippets.append(snippetAsDataFrame[snippetAsDataFrame.columns[0]].to_numpy(dtype=object)[0:1000])
                     testFiles_conditions.append(folderName)
             #else add to training set
             else:
@@ -61,7 +61,7 @@ def selectTrainingData(percentage,mode):
                     trainingFiles_snippets.append(rfft(snippetAsDataFrame[snippetAsDataFrame.columns[0]].to_numpy(dtype=object))[10:510])
                     trainingFiles_conditions.append(folderName)
                 elif mode=="raw":
-                    trainingFiles_snippets.append(snippetAsDataFrame[snippetAsDataFrame.columns[0]].to_numpy(dtype=object)[0:500])
+                    trainingFiles_snippets.append(snippetAsDataFrame[snippetAsDataFrame.columns[0]].to_numpy(dtype=object)[0:1000])
                     trainingFiles_conditions.append(folderName)
         #Progress indicator - prints message when snippets for a condition have been sorted into training and test sets
         print("'{folderName}' training data selected".format(folderName=folderName))

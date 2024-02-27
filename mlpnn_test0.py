@@ -42,7 +42,7 @@ def plotFT(number):
     plt.grid()
     plt.show()
 
-#plot some FTs
+#plot some FTs (comment this out if you don't want to see the plots)
 if mode=="FT":
     for i in random.sample(range(len(trainingFiles_snippets)),10):
         plotFT(int(i))
@@ -63,15 +63,15 @@ le.fit(os.listdir("Chunks"))
 #default settings for the first MLPNN model - try playing around with it
 model=nn.MLPClassifier(activation="logistic",verbose=True,shuffle=True,learning_rate="adaptive",max_iter=1000)
 
-#train the model
+#train the model (can feed the data in multiple times if you want)
 model.fit(np.abs(trainingFiles_snippets),le.transform(trainingFiles_conditions))
 
 #test model 
 predictedConditions=model.predict(np.abs(testFiles_snippets))
 #calculate accuracy
 accuracy=accuracy_score(y_true=le.transform(testFiles_conditions),y_pred=predictedConditions)*100
-print("Accuracy of Model: " + str(round(accuracy,2)) +"%")
+print("Accuracy of MLPNN Model: " + str(round(accuracy,2)) +"%")
 
-#compare to just guessing N everytime
+#compare to just guessing N every time
 accuracy=accuracy_score(y_true=le.transform(testFiles_conditions),y_pred=le.transform(["N"]*len(testFiles_conditions)))*100
-print("Guessing N everytime: "+ str(round(accuracy,2)) +"%")
+print("Accuracy of guessing N every time: "+ str(round(accuracy,2)) +"%")
