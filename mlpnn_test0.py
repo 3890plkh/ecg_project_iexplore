@@ -39,7 +39,7 @@ except IndexError:
 try:
     model_type=sys.argv[3]
 except IndexError:
-    model_type="LR"
+    model_type="MLP"
 
 
 #creates training data and test data
