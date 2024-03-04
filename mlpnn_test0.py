@@ -2,6 +2,7 @@
 # This will automatically run snippets.py first to create chunks
 # mainly following this https://www.educative.io/answers/implement-neural-network-for-classification-using-scikit-learn
 
+from sklearn.linear_model import LinearRegression
 from sklearn import neural_network as nn
 from sklearn import svm
 from sklearn.linear_model import SGDClassifier
@@ -38,7 +39,7 @@ except IndexError:
 try:
     model_type=sys.argv[3]
 except IndexError:
-    model_type="MLP"
+    model_type="LR"
 
 
 #creates training data and test data
@@ -92,6 +93,8 @@ elif model_type == "GP":  # take forever to run
     model=GaussianProcessClassifier()
 elif model_type == "DT":
     model=DecisionTreeClassifier()
+elif model_type == "LR":
+    model=LinearRegression()
 else:
     raise NameError("Unsupported model type")
 
