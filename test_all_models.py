@@ -102,6 +102,7 @@ accuracies=pd.DataFrame.from_dict(accuracies)
 #if accuracy.csv exists append new data to end without adding header
 accuracies.to_csv("Accuracies{percentage}.csv".format(percentage=str(percentage)),mode="a",sep=",",header= not os.path.isfile("Accuracies{percentage}.csv".format(percentage=str(percentage))),index=False)
 #total time taken to train each model
+print("Total time to train {iterations} versions of each model".format(iterations=iterations))
 print(times)
 
 #create a histogram of all data for that accuracy
