@@ -35,15 +35,15 @@ You just need to run the mlpnn_test0.py or the test_all_models.py script, it sho
 You are able to input command line arguments for both scripts.
 
 For mlpnn_test0.py, after the script name, you are able to specify the command line arguments:
-'''
+```
 percentage mode model_type
-'''
+```
 percentage specifies the % of data to be used for training the model, please type in "FT" for the mode argument and model_type specifies which model is to be used. You can see all of the possible options for the ML models in the code. Default parameters are 80 FT MLP.
 
 For test_all_models.py, after the script name, you are able to specify the command line arguments :
-'''
+```
 percentage mode iterations
-'''
+```
 percentage specifies the % of data to be used for training the model, type in "FT" for the mode argument and iterations specifies which how many random datasets are generated. Default parameters are 80 FT 1.
 
 ## Notice
