@@ -26,8 +26,8 @@ def annotations(patient):
 #MUST RUN "snippets.py" BEFORE USING THIS
 #produces a plot of both channels of a snippet of a given heart condition 
 def plotCondition(Condition,starttime,finishtime):
-    file=os.listdir(r"Chunks\{Condition}".format(Condition=Condition))[0]
-    data=pd.read_csv(r"Chunks\{Condition}\{file}".format(Condition=Condition,file=file))
+    file=os.listdir(r"Chunks/{Condition}".format(Condition=Condition))[100]
+    data=pd.read_csv(r"Chunks/{Condition}/{file}".format(Condition=Condition,file=file))
     #can change parameters of what part of snippet you want to plot depending on the file
     datachunk=data[(data["time"]<finishtime) & (data["time"]>starttime)]
     #create figure containing 2 graphs. One for each channel
@@ -51,4 +51,4 @@ def plotCondition(Condition,starttime,finishtime):
 #plot("203")
 #annotations("203")
 
-plotCondition("AFL",1,6)
+plotCondition("N",1,6)

@@ -38,14 +38,14 @@ def selectTrainingData(percentage,mode):
     random.shuffle(conditions)
     for folderName in conditions:
         #search the folder for that condition
-        folder=os.listdir(r"Chunks\{folderName}".format(folderName=folderName))
+        folder=os.listdir(r"Chunks/{folderName}".format(folderName=folderName))
         #randomise which data is used in the training dataset
         random.shuffle(folder)
         #calculate number of files to use
         filesToUse=percentage/100*len(folder)//1+1
         #loop through all snippets for that condition
         for i in range(len(folder)):
-            snippetAsDataFrame=pd.read_csv(r"Chunks\{folderName}\{filename}".format(folderName=folderName, filename=folder[i]),usecols=[1])
+            snippetAsDataFrame=pd.read_csv(r"Chunks/{folderName}/{filename}".format(folderName=folderName, filename=folder[i]),usecols=[1])
             #i+1 is the number of files that will have been selected if we include this index in the training set
             #if it is greater than the number of files we intend to use, don't add it to the training set
             if i+1>filesToUse:

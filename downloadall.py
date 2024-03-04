@@ -23,4 +23,4 @@ for patient in [100,101,102,103,104,105,106,107,108,109,111,112,113,114,115,116,
     if os.path.isdir("Patient data")!=True:
         os.mkdir("Patient data")
     #coverts dataframe to csv and saves in path specified (change path if required)
-    data.to_csv(path_or_buf=r"Patient data\{patient}.csv".format(patient=patient),sep=",",index=False)
+    data.to_csv(path_or_buf=r"Patient data/{patient}.csv".format(patient=patient),sep=",",index=False)

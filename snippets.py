@@ -33,17 +33,17 @@ def convertToSnippet(samplefrom,sampleto,sig,fields,condition,patient):
     #create data frame of the signals
     data=pd.DataFrame.from_dict(data)
     #if folder for that condition doesn't exist, create one
-    if os.path.isdir(r"Chunks\{condition}".format(condition=condition))!=True:
-        os.mkdir(r"Chunks\{condition}".format(condition=condition))
+    if os.path.isdir(r"Chunks/{condition}".format(condition=condition))!=True:
+        os.mkdir(r"Chunks/{condition}".format(condition=condition))
     #if there already is a snippet for this heart condition for this patient, pandas to_csv overwrites it
     #need to add a number
     count=1
-    for file in os.listdir(r"Chunks\{condition}".format(condition=condition)):
+    for file in os.listdir(r"Chunks/{condition}".format(condition=condition)):
         #if this patient already has snippet in file
         if str(patient) in file:
             count+=1
     #coverts dataframe to csv and saves in path specified 
-    data.to_csv(path_or_buf=r"Chunks\{condition}\{patient}({count}).csv".format(patient=patient,condition=condition,count=count),sep=",",index=False)
+    data.to_csv(path_or_buf=r"Chunks/{condition}/{patient}({count}).csv".format(patient=patient,condition=condition,count=count),sep=",",index=False)
 
 #go through each patient file
 patients=[100,101,102,103,104,105,106,107,108,109,111,112,113,114,115,116,117,118,119,121,122,123,124,200,201,202,203,205,207,208,209,210,212,213,214,215,217,219,220,221,222,223,228,230,231,232,233,234]
@@ -133,4 +133,4 @@ for patient in patients:
 #record 106 creates a ghost file in the chunks folder with 0 entries, so need to delete this
 for file in os.listdir("Chunks"):
     if "106" in file:
-        os.remove(r"Chunks\{file}".format(file=file))
+        os.remove(r"Chunks/{file}".format(file=file))
