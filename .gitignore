@@ -3,5 +3,6 @@ Patient data
 *.png
 *.jpeg
 *.csv
+!Accuracies[0-9][0-9].csv
 Chunks
 __pycache__
