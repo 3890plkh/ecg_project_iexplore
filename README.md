@@ -30,15 +30,15 @@ Documentation for the MLPNN model is available here: https://scikit-learn.org/st
 Will also need the standard Python data processing libraries (numpy, pandas, scipy, matplotlib etc.). If you do not have these installed just run the above command but with whatever module you need to install.
 
 ## Running the Code
-You just need to run the mlpnn_test0.py or the test_all_models.py script, it should run all of the prerequisites for you.
+You just need to run the mlpnn_test0.py or the test_all_models.py script, it should run all of the other necessary scripts from this repository for you.
 
-You are able to input command line arguments for both scripts.
+You can input command line arguments for both scripts.
 
 For mlpnn_test0.py, after the script name, you are able to specify the command line arguments:
 ```
 percentage mode model_type
 ```
-percentage specifies the % of data to be used for training the model, please type in "FT" for the mode argument and model_type specifies which model is to be used. You can see all of the possible options for the ML models in the code. Default parameters are 80 FT MLP.
+percentage specifies the % of data to be used for training the model, type in "FT" for the mode argument and model_type specifies which model is to be used. You can see all of the possible options for the ML models in the code. Default parameters are 80 FT MLP.
 
 For test_all_models.py, after the script name, you are able to specify the command line arguments :
 ```
