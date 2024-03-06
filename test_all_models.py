@@ -25,17 +25,10 @@ try:
 except IndexError:
     percentage=80
 
-#enter a mode in command line                         
-#if no mode is entered, default to "FT" as this works
-try:                      
-    mode=sys.argv[2]                                                                                                                                                                                          
-except:
-    mode="FT"
-
 #enter number of iterations in command line                         
 #if no number is entered, default to 1
 try:                      
-    iterations=int(sys.argv[3])    
+    iterations=int(sys.argv[2])    
     if iterations<0:
         raise ValueError("Please input a positive number")                                                                                                                                        
 except:
@@ -59,7 +52,7 @@ le.fit(os.listdir("Chunks"))
 for i in range(iterations):
     print("Iteration " + str(i+1) + ":")
     #select training data - should be consistent for the iteration
-    trainingFiles_snippets,trainingFiles_conditions,testFiles_snippets,testFiles_conditions=selectTrainingData(percentage,mode)
+    trainingFiles_snippets,trainingFiles_conditions,testFiles_snippets,testFiles_conditions=selectTrainingData(percentage)
 
     #For each model_type - ignore GaussianProcess for now - it takes a while
     for model_type in models:

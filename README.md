@@ -36,15 +36,15 @@ You can input command line arguments for both scripts.
 
 For mlpnn_test0.py, after the script name, you are able to specify the command line arguments:
 ```
-percentage mode model_type
+percentage model_type
 ```
-percentage specifies the % of data to be used for training the model, type in "FT" for the mode argument and model_type specifies which model is to be used. You can see all of the possible options for the ML models in the code. Default parameters are 80 FT MLP.
+percentage specifies the % of data to be used for training the model. You can see all of the possible options for the ML models in the code. Default parameters are 80 MLP.
 
 For test_all_models.py, after the script name, you are able to specify the command line arguments :
 ```
-percentage mode iterations
+percentage iterations
 ```
-percentage specifies the % of data to be used for training the model, type in "FT" for the mode argument and iterations specifies which how many random datasets are generated. Default parameters are 80 FT 1.
+percentage specifies the % of data to be used for training the model, iterations specifies which how many random datasets are generated. Default parameters are 80 1.
 
 ## Notice
 Contains information from MIT-BIH Arrhythmia Database (https://physionet.org/content/mitdb/1.0.0/) which is made available under the ODC Attribution License (https://physionet.org/content/mitdb/view-license/1.0.0/).

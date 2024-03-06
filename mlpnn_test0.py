@@ -27,23 +27,16 @@ try:
 except IndexError:
     percentage=80
 
-#enter a mode in command line
-#if no mode is entered, default to "FT" as this works
-try:
-    mode=sys.argv[2]
-except IndexError:
-    mode="FT"
-
 #enter a model type in command line
 #if no model type is entered, default to "MLP" as this works
 try:
-    model_type=sys.argv[3]
+    model_type=sys.argv[2]
 except IndexError:
     model_type="MLP"
 
 
 #creates training data and test data
-trainingFiles_snippets,trainingFiles_conditions,testFiles_snippets,testFiles_conditions=selectTrainingData(percentage,mode)
+trainingFiles_snippets,trainingFiles_conditions,testFiles_snippets,testFiles_conditions=selectTrainingData(percentage)
 
 #-------------------------------------------------------------------------
 #FT mode checks

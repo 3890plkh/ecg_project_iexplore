@@ -14,11 +14,9 @@ import random
 
 #out of all of the snippets we have created, this function selects percentage% of the files from each folder
 #to be used as training data
-#several modes for different models
 #mode "FT" - signals are converted into FFTs
-#mode "raw" - keep data in raw voltage values
 #returns 4 lists: training data signals, training data conditions, then test data signals and test data conditions
-def selectTrainingData(percentage,mode):
+def selectTrainingData(percentage):
     #if no chunks of ECG data created from "snippets.py", then run snippets
     if os.path.isdir("Chunks")!=True:
         import snippets
@@ -49,20 +47,12 @@ def selectTrainingData(percentage,mode):
             #i+1 is the number of files that will have been selected if we include this index in the training set
             #if it is greater than the number of files we intend to use, don't add it to the training set
             if i+1>filesToUse:
-                if mode=="FT":
-                    testFiles_snippets.append(rfft(snippetAsDataFrame[snippetAsDataFrame.columns[0]].to_numpy(dtype=object))[10:510])
-                    testFiles_conditions.append(folderName)
-                elif mode=="raw":
-                    testFiles_snippets.append(snippetAsDataFrame[snippetAsDataFrame.columns[0]].to_numpy(dtype=object)[0:1000])
-                    testFiles_conditions.append(folderName)
+                testFiles_snippets.append(rfft(snippetAsDataFrame[snippetAsDataFrame.columns[0]].to_numpy(dtype=object))[10:510])
+                testFiles_conditions.append(folderName)
             #else add to training set
             else:
-                if mode=="FT":
-                    trainingFiles_snippets.append(rfft(snippetAsDataFrame[snippetAsDataFrame.columns[0]].to_numpy(dtype=object))[10:510])
-                    trainingFiles_conditions.append(folderName)
-                elif mode=="raw":
-                    trainingFiles_snippets.append(snippetAsDataFrame[snippetAsDataFrame.columns[0]].to_numpy(dtype=object)[0:1000])
-                    trainingFiles_conditions.append(folderName)
+                trainingFiles_snippets.append(rfft(snippetAsDataFrame[snippetAsDataFrame.columns[0]].to_numpy(dtype=object))[10:510])
+                trainingFiles_conditions.append(folderName)
         #Progress indicator - prints message when snippets for a condition have been sorted into training and test sets
         print("'{folderName}' training data selected".format(folderName=folderName))
     
