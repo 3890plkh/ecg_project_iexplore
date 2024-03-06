@@ -35,7 +35,9 @@ except:
 #enter number of iterations in command line                         
 #if no number is entered, default to 1
 try:                      
-    iterations=int(sys.argv[3])                                                                                                                                            
+    iterations=int(sys.argv[3])    
+    if iterations<0:
+        raise ValueError("Please input a positive number")                                                                                                                                        
 except:
     iterations=1
 
@@ -53,8 +55,6 @@ if os.path.isdir("Chunks")==False:
     import snippets
 le.fit(os.listdir("Chunks"))
 
-MLPtime=0
-SGDtime=0
 #for rach iteration - create training data and train all models on that data
 for i in range(iterations):
     print("Iteration " + str(i+1) + ":")
@@ -105,13 +105,13 @@ accuracies.to_csv("Accuracies{percentage}.csv".format(percentage=str(percentage)
 print("Total time to train {iterations} versions of each model".format(iterations=iterations))
 print(times)
 
-#create a histogram of all data for that accuracy
-edges=np.linspace(20,100,81,endpoint=True)
+#create a histogram of all accuracy data 
+edges=np.linspace(70,95,101,endpoint=True)
 data=pd.read_csv("Accuracies{percentage}.csv".format(percentage=str(percentage)),sep=",")
 for model in data.columns:
-    plt.hist(data[model],bins=edges,label="{model}".format(model=model),alpha=0.5)
+    plt.hist(data[model],bins=edges,label="{model}".format(model=model),alpha=0.6,histtype="bar",ec="black",stacked=False)
 plt.legend()
 plt.ylabel("Frequency")
-plt.xlabel("Accuracy")
+plt.xlabel("Accuracy (%)")
 plt.title("Accuracy of selected different ML models trained on {iterations} different training datasets".format(iterations=len(data)))
 plt.show()
