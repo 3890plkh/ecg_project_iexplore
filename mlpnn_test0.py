@@ -79,12 +79,12 @@ le.fit(os.listdir("Chunks"))
 #Form model  with its model_type
 if model_type == "MLP":
     #default settings for the first MLPNN model - try playing around with it
-    model=nn.MLPClassifier(activation="logistic",verbose=False,shuffle=True,learning_rate="adaptive",max_iter=1000)
+    model=nn.MLPClassifier(activation="logistic",verbose=True,shuffle=True,learning_rate="adaptive",max_iter=1000)
     # verbose is turned off for consistency
 elif model_type == "SVM":
-    model=svm.SVC()
+    model=svm.SVC(verbose=True)
 elif model_type == "SGD":
-    model=SGDClassifier()
+    model=SGDClassifier(verbose=True)
 elif model_type == "KNN":
     model=KNeighborsClassifier()
 elif model_type == "NC":  # low score
@@ -93,6 +93,7 @@ elif model_type == "GP":  # take forever to run
     model=GaussianProcessClassifier()
 elif model_type == "DT":
     model=DecisionTreeClassifier()
+#currently broken, not sure why    
 elif model_type == "LR":
     model=LinearRegression()
 else:
