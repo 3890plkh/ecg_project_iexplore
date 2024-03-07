@@ -6,3 +6,5 @@ Patient data
 !Accuracies[0-9][0-9].csv
 Chunks
 __pycache__
+Precision Data
+Recall Data
