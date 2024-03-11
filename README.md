@@ -7,7 +7,7 @@ This repository contains the following code:
 * ecgcode.py - for playing around with the data, contains a function called plotCondition(), which plots a section of a snippet for a specific heart condition that you specify.
 * trainingDataSelector.py - contains a function that selects a percentage of the data to be used to train the MLPNN model. Which files make up that percentage is randomised each time (i.e. if you want 80% of the data to be used as training data, 80% of the total snippets will get selected each time, but out of our total snippets, which files make up this 80% changes each time)
 * mplnn_test0.py - first attempt at creating a working ML model. The ECG signals are fed in as a Fourier transforms. You can specify what percentage of the data should be used for training the ML model from the command line (if you don't specify a percentage, 80% of the data will be used for training as default).
-* test_all_models.py - trains all models using the same data and calculate an accuracy for each model. The code can create multiple training datasets and train all models on each of these datasets, and calculate an accuracy for each dataset. Plots a histogram of the accuracy scores.
+* test_all_models.py - trains all models using the same data and calculate an accuracy for each model. The code can create multiple training datasets and train all models on each of these datasets, and calculate an accuracy for each dataset and a precision and recall score for each condition for each dataset. Plots a histogram of the accuracy scores.
 
 ## What the Aims of the Project are
 

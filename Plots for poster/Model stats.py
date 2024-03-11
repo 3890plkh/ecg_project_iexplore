@@ -1,5 +1,7 @@
 #Gives us mean and sample standard deviation of accuracies, precisions and recall for each model
+#please read what these numbers mean: https://scikit-learn.org/stable/modules/model_evaluation.html
 #Will help us analyse where models are good and bad
+#Also calculating a mean of precisions is a bit dubious (as discussed below)
 import pandas as pd
 import sys 
 
@@ -10,7 +12,7 @@ except:
 
 #
 accuracydata=pd.read_csv("Accuracies{percentage}.csv".format(percentage=str(percentage)))
-print("After {iterations} iterations:\nMean Accuracy".format(iterations=len(accuracydata)))
+print("After {iterations} iterations:\nAccuracy Statistics".format(iterations=len(accuracydata)))
 for model_type in accuracydata.columns:
     #fine to calculate mean accuracy in this way
     #For the same percentage of training data, same number of test sets will be selected for each iteration

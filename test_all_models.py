@@ -7,7 +7,6 @@ from sklearn import svm
 from sklearn.linear_model import SGDClassifier
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.neighbors import NearestCentroid
-from sklearn.gaussian_process import GaussianProcessClassifier
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import accuracy_score, precision_score, recall_score
 from sklearn.preprocessing import LabelEncoder
@@ -104,31 +103,36 @@ accuracies=pd.DataFrame.from_dict(accuracies)
 accuracies.to_csv("Accuracies{percentage}.csv".format(percentage=str(percentage)),mode="a",sep=",",header= not os.path.isfile("Accuracies{percentage}.csv".format(percentage=str(percentage))),index=False)
 
 #save precision and recall data
-for model_type in models:
-    #get precisions for every condition for that model
-    precisionforModeltype=pd.DataFrame(precisionScores[model_type],columns=le.inverse_transform(range(len(precisionScores[model_type][0]))))
-    precisionforModeltype.to_csv("Precision Data/Precisions{model}{percentage}.csv".format(model=model_type,percentage=str(percentage)),mode="a",sep=",",header= not os.path.isfile("Precision Data/Precisions{model}{percentage}.csv".format(model=model_type,percentage=str(percentage))),index=False)
-    #get recalls for every condition for that model
-    recallsforModeltype=pd.DataFrame(recallScores[model_type],columns=le.inverse_transform(range(len(recallScores[model_type][0]))))
-    recallsforModeltype.to_csv("Recall Data/Recalls{model}{percentage}.csv".format(model=model_type,percentage=str(percentage)),mode="a",sep=",",header= not os.path.isfile("Recall Data/Recalls{model}{percentage}.csv".format(model=model_type,percentage=str(percentage))),index=False)
+if iterations!=0:
+    for model_type in models:
+        #get precisions for every condition for that model
+        precisionforModeltype=pd.DataFrame(precisionScores[model_type],columns=le.inverse_transform(range(len(precisionScores[model_type][0]))))
+        precisionforModeltype.to_csv("Precision Data/Precisions{model}{percentage}.csv".format(model=model_type,percentage=str(percentage)),mode="a",sep=",",header= not os.path.isfile("Precision Data/Precisions{model}{percentage}.csv".format(model=model_type,percentage=str(percentage))),index=False)
+        #get recalls for every condition for that model
+        recallsforModeltype=pd.DataFrame(recallScores[model_type],columns=le.inverse_transform(range(len(recallScores[model_type][0]))))
+        recallsforModeltype.to_csv("Recall Data/Recalls{model}{percentage}.csv".format(model=model_type,percentage=str(percentage)),mode="a",sep=",",header= not os.path.isfile("Recall Data/Recalls{model}{percentage}.csv".format(model=model_type,percentage=str(percentage))),index=False)
 
 #total time taken to train each model
 print("Total time to train {iterations} versions of each model".format(iterations=iterations))
 print(times)
 
 #create a histogram of all accuracy data 
-edges=np.linspace(70,95,101,endpoint=True)
+edges=np.linspace(20,95,101,endpoint=True)
 data=pd.read_csv("Accuracies{percentage}.csv".format(percentage=str(percentage)),sep=",")
 for model in data.columns:
-    plt.hist(data[model],bins=edges,label="{model}".format(model=model),alpha=0.6,histtype="bar",ec="black",stacked=False)
+    plt.hist(data[model],bins=edges,label="{model}".format(model=model),alpha=0.8,histtype="bar",ec="black",stacked=False)
 
+#testing accuracy if you just guessed N every time
 total=0
 for folder in os.listdir("Chunks"):
     total+=len(os.listdir(r"Chunks/{folder}".format(folder=folder)))
 
-percentN=len(os.listdir("Chunks/N"))/total
-plt.legend()
+percentN=len(os.listdir("Chunks/N"))/total*100
+plt.axvline(x=percentN, linestyle="--",label="Accuracy from guessing N everytime")
+
+plt.grid()
 plt.ylabel("Frequency")
 plt.xlabel("Accuracy (%)")
+plt.legend()
 plt.title("Accuracy of selected different ML models trained on {iterations} different training datasets".format(iterations=len(data)))
 plt.show()
