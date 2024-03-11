@@ -3,6 +3,8 @@ Patient data
 *.png
 *.jpeg
 *.csv
-!Accuracies[0-9][0-9].csv
+!Accuracies[0-9][0-9].csv 
+!Precision Data/Precisions*80.csv
+!Recall Data/Recalls*80.csv
 Chunks
 __pycache__
