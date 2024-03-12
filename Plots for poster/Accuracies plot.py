@@ -33,5 +33,5 @@ for model in ["MLP","SVM","KNN"]:
     axis.text(x=accuracies[model].mean(axis=0),y=bottom+1.02*(top-bottom), s="{mean}%".format(mean=round(accuracies[model].mean(axis=0),2)),horizontalalignment="center")
 
 plt.savefig(r"Plots for poster/Plots/hist_accuracies.png",dpi=1000)
-plt.show()
+plt.close()
 

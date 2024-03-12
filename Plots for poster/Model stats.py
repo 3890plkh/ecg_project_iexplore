@@ -72,12 +72,15 @@ for condition in conditions:
     plt.bar(3*xs+width,((conditionsdict[condition])["Recall Means"]).values(),width=width,ec="Black",color="orange",label="Recall Means")
     count=0
     #if precision is nan i.e. model never guessed this condition, replace with black crossed hatched bar
+    #if you can think of a nicer way to do this, please replace this
     for i in ((conditionsdict[condition])["Precision Means"]).values():
         if np.isnan(i)==True:
             plt.bar(3*count,110,width=width,color="white",hatch="//",label="Model never guesses {condition}".format(condition=condition))
         count+=1
-    plt.title("{condition} - Recall and Precision Data for each Model".format(condition=condition))
+    plt.title("{condition} - Recall and Precision Data for Each Model".format(condition=condition))
     plt.xticks((3*xs+(3*xs+width))/2,((conditionsdict[condition])["Precision Means"]).keys())
+    plt.xlabel("Model")
+    plt.ylabel("Percentage (%)")
     plt.legend()
     plt.savefig(r"Plots for poster/Plots/{condition}_PrecisionandRecall".format(condition=condition),dpi=1000)
     plt.close()

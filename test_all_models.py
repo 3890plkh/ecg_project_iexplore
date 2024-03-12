@@ -117,10 +117,11 @@ print("Total time to train {iterations} versions of each model".format(iteration
 print(times)
 
 #create a histogram of all accuracy data 
-edges=np.linspace(20,95,101,endpoint=True)
+edges=np.linspace(70,95,101,endpoint=True)
 data=pd.read_csv("Accuracies{percentage}.csv".format(percentage=str(percentage)),sep=",")
 for model in data.columns:
-    plt.hist(data[model],bins=edges,label="{model}".format(model=model),alpha=0.8,histtype="bar",ec="black",stacked=False)
+    if model!="NC":
+        plt.hist(data[model],bins=edges,label="{model}".format(model=model),alpha=0.8,histtype="bar",ec="black",stacked=False)
 
 #testing accuracy if you just guessed N every time
 total=0
@@ -134,5 +135,6 @@ plt.grid()
 plt.ylabel("Frequency")
 plt.xlabel("Accuracy (%)")
 plt.legend()
-plt.title("Accuracy of selected different ML models trained on {iterations} different training datasets".format(iterations=len(data)))
+plt.title("Accuracy of ML models trained on {iterations} different training datasets".format(iterations=len(data)))
+plt.savefig("Plots for poster/Plots/big_accuracies_hist.png",dpi=1000)
 plt.show()
