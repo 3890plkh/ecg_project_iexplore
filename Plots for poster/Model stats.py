@@ -4,13 +4,27 @@
 #Also calculating a mean of precisions is a bit dubious (as discussed below)
 import pandas as pd
 import sys 
+import os
+import matplotlib.pyplot as plt
+import numpy as np
 
 try:
     percentage=sys.argv[1]
 except:
     percentage=80
 
-#
+if os.path.isdir(r"Plots for poster/Plots")!=True:
+    os.mkdir(r"Plots for poster/Plots")
+
+#create a dict for each condition
+conditions=os.listdir("Chunks")
+conditionsdict={condition:{} for condition in conditions}
+for condition in conditions:
+    ((conditionsdict[condition])["Precision Means"])={}
+    ((conditionsdict[condition])["Precision SD"])={}
+    ((conditionsdict[condition])["Recall Means"])={}
+    ((conditionsdict[condition])["Recall SD"])={}
+
 accuracydata=pd.read_csv("Accuracies{percentage}.csv".format(percentage=str(percentage)))
 print("After {iterations} iterations:\nAccuracy Statistics".format(iterations=len(accuracydata)))
 for model_type in accuracydata.columns:
@@ -38,7 +52,32 @@ for model_type in accuracydata.columns:
     
     #as per accuracies, calculating mean for recalls is fine as 
     # there should be same number of files for each condition for the same percentage
-    recallstats=pd.DataFrame({"Mean":recalldata.mean(), "SD": precisiondata.std()})
+    recallstats=pd.DataFrame({"Mean":recalldata.mean(), "SD": recalldata.std()})
     print("Recall statistics:")
     print(recallstats.T.round(2).to_string(index=True))
     print("\n")
+    for condition in conditions:
+        ((conditionsdict[condition])["Precision Means"])[model_type]=precisiondata[condition].mean()
+        ((conditionsdict[condition])["Precision SD"])[model_type]=precisiondata[condition].std()
+        ((conditionsdict[condition])["Recall Means"])[model_type]=recalldata[condition].mean() 
+        ((conditionsdict[condition])["Recall SD"])[model_type]=recalldata[condition].std()
+
+#create model recall and precision plot for all conditions
+for condition in conditions:
+    plt.figure()
+    xs=np.arange(len(((conditionsdict[condition])["Precision Means"]).keys()))
+    plt.ylim(0,110)
+    width=1
+    plt.bar(3*xs,((conditionsdict[condition])["Precision Means"]).values(),width=width,ec="Black",color="CornflowerBlue",label="Precision Means")
+    plt.bar(3*xs+width,((conditionsdict[condition])["Recall Means"]).values(),width=width,ec="Black",color="orange",label="Recall Means")
+    count=0
+    #if precision is nan i.e. model never guessed this condition, replace with black crossed hatched bar
+    for i in ((conditionsdict[condition])["Precision Means"]).values():
+        if np.isnan(i)==True:
+            plt.bar(3*count,110,width=width,color="white",hatch="//",label="Model never guesses {condition}".format(condition=condition))
+        count+=1
+    plt.title("{condition} - Recall and Precision Data for each Model".format(condition=condition))
+    plt.xticks((3*xs+(3*xs+width))/2,((conditionsdict[condition])["Precision Means"]).keys())
+    plt.legend()
+    plt.savefig(r"Plots for poster/Plots/{condition}_PrecisionandRecall".format(condition=condition),dpi=1000)
+    plt.close()

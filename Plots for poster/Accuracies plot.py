@@ -9,7 +9,7 @@ try:
 except:
     percentage=80
 
-if os.path.isdir(r"Plots for poster/Plots")!="True":
+if os.path.isdir(r"Plots for poster/Plots")!=True:
     os.mkdir(r"Plots for poster/Plots")
 
 #make sure you are in the main project directory not this directory
@@ -22,7 +22,7 @@ for ax in axes:
     ax.axvline(accuracies[["MLP","SVM","KNN"][i]].mean(axis=0),color="k",linestyle="dotted",alpha=0.7)
     ax.text(x=accuracies[["MLP","SVM","KNN"][i]].mean(axis=0),y=bottom+0.65*(top-bottom),s="Mean:   {mean}%".format(mean=round(accuracies[["MLP","SVM","KNN"][i]].mean(axis=0),2)),horizontalalignment="center")
     i+=1
-    
+
 plt.savefig(r"Plots for poster/Plots/hist_accuracies_sep.png",dpi=1000)
 plt.show()
 
@@ -31,6 +31,7 @@ bottom,top=axis.get_ylim()
 for model in ["MLP","SVM","KNN"]:
     axis.axvline(accuracies[model].mean(axis=0),color="k",linestyle="dotted",alpha=0.7)
     axis.text(x=accuracies[model].mean(axis=0),y=bottom+1.02*(top-bottom), s="{mean}%".format(mean=round(accuracies[model].mean(axis=0),2)),horizontalalignment="center")
+
 plt.savefig(r"Plots for poster/Plots/hist_accuracies.png",dpi=1000)
 plt.show()
 
