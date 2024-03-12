@@ -3,11 +3,10 @@
 This is the project code for analysis of ECG data from the MIT-BIH Arrhythmia Database (can be found here: https://physionet.org/content/mitdb/1.0.0/). 
 
 This repository contains the following code:
-* snippets.py - creates snippets of ECG pulses of different types of heart conditions. Heart condition is determined is from the annotations provided in the MIT-BIH Arrhythmia Database.
-* ecgcode.py - for playing around with the data, contains a function called plotCondition(), which plots a section of a snippet for a specific heart condition that you specify.
-* trainingDataSelector.py - contains a function that selects a percentage of the data to be used to train the MLPNN model. Which files make up that percentage is randomised each time (i.e. if you want 80% of the data to be used as training data, 80% of the total snippets will get selected each time, but out of our total snippets, which files make up this 80% changes each time)
 * mplnn_test0.py - first attempt at creating a working ML model. The ECG signals are fed in as a Fourier transforms. You can specify what percentage of the data should be used for training the ML model from the command line (if you don't specify a percentage, 80% of the data will be used for training as default).
-* test_all_models.py - trains all models using the same data and calculate an accuracy for each model. The code can create multiple training datasets and train all models on each of these datasets, and calculate an accuracy for each dataset and a precision and recall score for each condition for each dataset. Plots a histogram of the accuracy scores.
+* test_all_models.py - Randomises which files to use as training data. Trains all models using that same data and calculate accuracy, precision and recall scores for each model. The code can create multiple random training datasets and train all models on each of these datasets. Plots a histogram of the accuracy scores.
+* Plots for poster\Accuracies plot.py - plots histograms of the accuracies data for the MLP, KNN and SVM models. Saves plots as .png file in Plots for poster\Plots.
+* Plots for poster\Model stats.py - calculate mean precision and recall scores for different models and plots the precision and recall scores of each model for each condition. Saves plots as .png file in Plots for poster\Plots.
 
 ## What the Aims of the Project are
 
@@ -38,13 +37,13 @@ For mlpnn_test0.py, after the script name, you are able to specify the command l
 ```
 percentage model_type
 ```
-percentage specifies the % of data to be used for training the model. You can see all of the possible options for the ML models in the code. Default parameters are 80 MLP.
+percentage specifies the % of data to be used for training the model. You can see all of the possible options for the ML models in the code. Default parameters that will be used if none are specified are 80 MLP.
 
 For test_all_models.py, after the script name, you are able to specify the command line arguments :
 ```
 percentage iterations
 ```
-percentage specifies the % of data to be used for training the model, iterations specifies which how many random datasets are generated. Default parameters are 80 1.
+percentage specifies the % of data to be used for training the model, iterations specifies which how many random datasets are generated. Default parameters that will be used if none are specified are 80 1.
 
 ## Notice
 Contains information from MIT-BIH Arrhythmia Database (https://physionet.org/content/mitdb/1.0.0/) which is made available under the ODC Attribution License (https://physionet.org/content/mitdb/view-license/1.0.0/).
